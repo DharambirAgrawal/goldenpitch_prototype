@@ -24,11 +24,13 @@ export default function HelpPage() {
       content: [
         {
           question: 'How do I connect my device?',
-          answer: 'Tap the "Connect Device" button on the Dashboard. The app will simulate a connection to your wearable device via Bluetooth Low Energy.'
+          answer: 'Tap the "Connect Device" button on the Dashboard. The app will simulate a connection to your wearable device via Bluetooth Low Energy.',
+          icon: undefined
         },
         {
           question: 'How do I start detection?',
-          answer: 'Once connected, tap the main circular button to start detection. The button will turn green and show "Stop Detection" when active.'
+          answer: 'Once connected, tap the main circular button to start detection. The button will turn green and show "Stop Detection" when active.',
+          icon: undefined
         }
       ]
     },
@@ -38,11 +40,13 @@ export default function HelpPage() {
       content: [
         {
           question: 'What is Home Mode?',
-          answer: 'Home Mode is optimized for indoor navigation with a detection range of up to 5 meters. It provides more sensitive detection for navigating tight spaces and furniture.'
+          answer: 'Home Mode is optimized for indoor navigation with a detection range of up to 5 meters. It provides more sensitive detection for navigating tight spaces and furniture.',
+          icon: undefined
         },
         {
           question: 'What is Outdoor Mode?',
-          answer: 'Outdoor Mode extends the detection range up to 10 meters for outdoor environments. It helps you navigate sidewalks, crossings, and outdoor obstacles.'
+          answer: 'Outdoor Mode extends the detection range up to 10 meters for outdoor environments. It helps you navigate sidewalks, crossings, and outdoor obstacles.',
+          icon: undefined
         }
       ]
     },
@@ -73,15 +77,18 @@ export default function HelpPage() {
       content: [
         {
           question: 'Text-to-Speech',
-          answer: 'When enabled, the app speaks status updates, obstacle information, and navigation instructions aloud. This is the primary way visually impaired users interact with the app.'
+          answer: 'When enabled, the app speaks status updates, obstacle information, and navigation instructions aloud. This is the primary way visually impaired users interact with the app.',
+          icon: undefined
         },
         {
           question: 'Font Size Adjustment',
-          answer: 'Choose from small, medium, or large text sizes to make the app comfortable to read for users with partial vision or visual preferences.'
+          answer: 'Choose from small, medium, or large text sizes to make the app comfortable to read for users with partial vision or visual preferences.',
+          icon: undefined
         },
         {
           question: 'High Contrast Mode',
-          answer: 'Increases color contrast throughout the app for better visibility. This helps users with low vision or in bright outdoor conditions.'
+          answer: 'Increases color contrast throughout the app for better visibility. This helps users with low vision or in bright outdoor conditions.',
+          icon: undefined
         }
       ]
     },
@@ -91,11 +98,13 @@ export default function HelpPage() {
       content: [
         {
           question: 'Important Safety Notice',
-          answer: 'This assistive device is designed to supplement, not replace, traditional mobility aids like canes or guide dogs. Always use caution and follow established safety practices when navigating.'
+          answer: 'This assistive device is designed to supplement, not replace, traditional mobility aids like canes or guide dogs. Always use caution and follow established safety practices when navigating.',
+          icon: undefined
         },
         {
           question: 'Battery and Connection',
-          answer: 'Ensure your wearable device is charged and properly connected before starting your journey. The app will alert you if the connection is lost.'
+          answer: 'Ensure your wearable device is charged and properly connected before starting your journey. The app will alert you if the connection is lost.',
+          icon: undefined
         }
       ]
     }
