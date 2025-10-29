@@ -1,7 +1,15 @@
 {
-  "name": "goldenpitch_prototype",
+  "name": "dwips-assistive-navigation",
   "version": "0.1.0",
   "private": true,
+  "description": "Advanced wearable assistive device companion app for visually impaired users",
+  "keywords": [
+    "assistive technology",
+    "accessibility",
+    "navigation",
+    "visually impaired",
+    "wearable device"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",

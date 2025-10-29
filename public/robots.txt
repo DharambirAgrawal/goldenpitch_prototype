@@ -1,0 +1,6 @@
+# robots.txt for Dwips - Assistive Navigation
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://dwips.com/sitemap.xml

@@ -1,4 +1,16 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dwips - Assistive Navigation
+
+This is a [Next.js](https://nextjs.org) project for Dwips, an advanced wearable assistive device companion app designed to empower visually impaired users with intelligent navigation and obstacle detection.
+
+## About Dwips
+
+Dwips is an innovative assistive technology solution that provides:
+
+- Real-time obstacle detection and navigation assistance
+- Multiple feedback modes (audio, haptic, visual)
+- Indoor and outdoor navigation modes
+- Comprehensive accessibility features
+- Journey tracking and history
 
 ## Getting Started
 

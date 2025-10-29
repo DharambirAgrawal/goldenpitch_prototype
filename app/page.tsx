@@ -1,23 +1,29 @@
-'use client';
+"use client";
 
-import { Mic, Power, Bluetooth } from 'lucide-react';
-import { useApp } from '@/lib/context/AppContext';
-import MainButton from '@/components/MainButton';
-import StatusIndicator from '@/components/StatusIndicator';
-import { motion } from 'framer-motion';
+import { Mic, Power, Bluetooth } from "lucide-react";
+import { useApp } from "@/lib/context/AppContext";
+import MainButton from "@/components/MainButton";
+import StatusIndicator from "@/components/StatusIndicator";
+import ZoneDetector from "@/components/ZoneDetector";
+import CollisionRiskMeter from "@/components/CollisionRiskMeter";
+import BatteryStatus from "@/components/BatteryStatus";
+import { EmergencySOS } from "@/components/EmergencySOS";
+import { motion } from "framer-motion";
 
 export default function Home() {
-  const { 
-    connectionStatus, 
-    detectionStatus, 
-    toggleConnection, 
+  const {
+    connectionStatus,
+    detectionStatus,
+    toggleConnection,
     toggleDetection,
     speakText,
-    recentDetections 
+    recentDetections,
+    currentDetection,
+    settings,
   } = useApp();
 
   const handleMainAction = () => {
-    if (connectionStatus !== 'connected') {
+    if (connectionStatus !== "connected") {
       toggleConnection();
     } else {
       toggleDetection();
@@ -25,20 +31,23 @@ export default function Home() {
   };
 
   const getMainButtonLabel = () => {
-    if (connectionStatus === 'disconnected') return 'Connect Device';
-    if (connectionStatus === 'connecting') return 'Connecting...';
-    if (detectionStatus === 'active') return 'Stop Detection';
-    return 'Start Detection';
+    if (connectionStatus === "disconnected") return "Connect Device";
+    if (connectionStatus === "connecting") return "Connecting...";
+    if (detectionStatus === "active") return "Stop Detection";
+    return "Start Detection";
   };
 
   const handleVoiceCommand = () => {
-    speakText('Voice commands coming soon. You can start or stop detection, change modes, or hear status updates.');
+    speakText(
+      "Voice commands coming soon. You can start or stop detection, change modes, or hear status updates."
+    );
   };
 
   const handleSpeakStatus = () => {
-    const status = connectionStatus === 'connected' 
-      ? `Device connected. Detection is ${detectionStatus}.`
-      : `Device is ${connectionStatus}.`;
+    const status =
+      connectionStatus === "connected"
+        ? `Device connected. Detection is ${detectionStatus}.`
+        : `Device is ${connectionStatus}.`;
     speakText(status);
   };
 
@@ -47,14 +56,14 @@ export default function Home() {
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-8">
         {/* Header */}
         <div className="w-full max-w-2xl mb-8 text-center md:text-left">
-          <motion.h1 
+          <motion.h1
             className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
           >
             Dashboard
           </motion.h1>
-          <motion.p 
+          <motion.p
             className="text-gray-600 dark:text-gray-400"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -65,8 +74,8 @@ export default function Home() {
         </div>
 
         {/* Status Indicators */}
-        <motion.div 
-          className="mb-8 w-full"
+        <motion.div
+          className="mb-8 w-full max-w-2xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -74,28 +83,73 @@ export default function Home() {
           <StatusIndicator />
         </motion.div>
 
+        {/* Battery Status */}
+        <motion.div
+          className="mb-8 w-full max-w-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+        >
+          <BatteryStatus
+            batteryLevel={settings.batteryLevel}
+            isCharging={settings.isCharging}
+          />
+        </motion.div>
+
         {/* Main Action Button */}
-        <motion.div 
+        <motion.div
           className="my-8"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3, type: 'spring' }}
+          transition={{ delay: 0.35, type: "spring" }}
         >
           <MainButton
             onClick={handleMainAction}
             label={getMainButtonLabel()}
-            isActive={detectionStatus === 'active'}
-            disabled={connectionStatus === 'connecting'}
-            icon={connectionStatus !== 'connected' ? <Bluetooth className="w-12 h-12" /> : <Power className="w-12 h-12" />}
+            isActive={detectionStatus === "active"}
+            disabled={connectionStatus === "connecting"}
+            icon={
+              connectionStatus !== "connected" ? (
+                <Bluetooth className="w-12 h-12" />
+              ) : (
+                <Power className="w-12 h-12" />
+              )
+            }
           />
         </motion.div>
+        {/* Zone Detection - Show when active */}
+        {detectionStatus === "active" && recentDetections.length > 0 && (
+          <motion.div
+            className="mb-8 w-full"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <ZoneDetector recentDetections={recentDetections} />
+          </motion.div>
+        )}
+
+        {/* Collision Risk Meter - Show when detection is active */}
+        {detectionStatus === "active" && (
+          <motion.div
+            className="mb-8 w-full"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <CollisionRiskMeter
+              currentDetection={currentDetection}
+              recentDetections={recentDetections}
+            />
+          </motion.div>
+        )}
 
         {/* Quick Actions */}
-        <motion.div 
+        <motion.div
           className="flex gap-4 mt-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
+          transition={{ delay: 0.45 }}
         >
           <motion.button
             onClick={handleVoiceCommand}
@@ -125,12 +179,23 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
           >
             <p className="text-blue-900 dark:text-blue-100 text-center">
-              <span className="font-bold text-2xl">{recentDetections.length}</span>
-              <span className="ml-2">recent detection{recentDetections.length !== 1 ? 's' : ''}</span>
+              <span className="font-bold text-2xl">
+                {recentDetections.length}
+              </span>
+              <span className="ml-2">
+                recent detection{recentDetections.length !== 1 ? "s" : ""}
+              </span>
             </p>
           </motion.div>
         )}
       </main>
+
+      {/* Emergency SOS Button - Fixed Position */}
+      <EmergencySOS
+        onEmergencyCall={() => {
+          speakText("Emergency services contacted. Help is on the way.");
+        }}
+      />
     </div>
   );
 }

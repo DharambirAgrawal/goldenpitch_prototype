@@ -9,14 +9,16 @@ import {
   Eye, 
   MessageSquare, 
   Type, 
-  Contrast 
+  Contrast,
+  Car,
+  Baby
 } from 'lucide-react';
 import { useApp } from '@/lib/context/AppContext';
 
 export default function SettingsPage() {
   const { settings, updateSettings, speakText } = useApp();
 
-  const handleModeChange = (mode: 'home' | 'outdoor') => {
+  const handleModeChange = (mode: 'home' | 'outdoor' | 'vehicle' | 'baby') => {
     updateSettings({ mode });
     speakText(`Switched to ${mode} mode`);
   };
@@ -97,6 +99,152 @@ export default function SettingsPage() {
                   Outdoor navigation, extended range (&lt;10m)
                 </p>
               </button>
+
+              <button
+                onClick={() => handleModeChange('vehicle')}
+                className={`p-4 rounded-lg border-2 transition-all ${
+                  settings.mode === 'vehicle'
+                    ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20'
+                    : 'border-gray-300 dark:border-gray-600 hover:border-blue-400'
+                }`}
+                aria-pressed={settings.mode === 'vehicle'}
+              >
+                <Car className="w-8 h-8 mb-2 text-purple-600 dark:text-purple-400" />
+                <h3 className="font-semibold text-gray-900 dark:text-white">Vehicle Mode</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  Driving/riding, extended range (&lt;15m)
+                </p>
+              </button>
+
+              <button
+                onClick={() => handleModeChange('baby')}
+                className={`p-4 rounded-lg border-2 transition-all ${
+                  settings.mode === 'baby'
+                    ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20'
+                    : 'border-gray-300 dark:border-gray-600 hover:border-blue-400'
+                }`}
+                aria-pressed={settings.mode === 'baby'}
+              >
+                <Baby className="w-8 h-8 mb-2 text-pink-600 dark:text-pink-400" />
+                <h3 className="font-semibold text-gray-900 dark:text-white">Baby Monitor</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  Room monitoring, close range (&lt;3m)
+                </p>
+              </button>
+            </div>
+
+            {/* Vehicle Type Selector - Only visible in vehicle mode */}
+            {settings.mode === 'vehicle' && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700"
+              >
+                <label htmlFor="vehicle-type" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Vehicle Type
+                </label>
+                <select
+                  id="vehicle-type"
+                  value={settings.vehicleType || 'car'}
+                  onChange={(e) => {
+                    updateSettings({ vehicleType: e.target.value as 'car' | 'motorcycle' | 'scooter' | 'bicycle' });
+                    speakText(`Vehicle type changed to ${e.target.value}`);
+                  }}
+                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-colors"
+                  aria-label="Select vehicle type"
+                >
+                  <option value="car">🚗 Car</option>
+                  <option value="motorcycle">🏍️ Motorcycle</option>
+                  <option value="bicycle">🚲 Bicycle</option>
+                  <option value="truck">🚚 Truck</option>
+                  <option value="bus">🚌 Bus</option>
+                </select>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                  Detection range and blind spot zones adjust based on vehicle type
+                </p>
+              </motion.div>
+            )}
+          </motion.section>
+
+          {/* Alert Sounds */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+            className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md"
+          >
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+              Alert Sounds
+            </h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              Choose your preferred alert sound for detections
+            </p>
+
+            <div>
+              <label htmlFor="alert-sound" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Sound Type
+              </label>
+              <select
+                id="alert-sound"
+                value={settings.alertSound || 'default'}
+                onChange={(e) => {
+                  updateSettings({ alertSound: e.target.value });
+                  speakText(`Alert sound changed to ${e.target.value}`);
+                }}
+                className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-colors"
+                aria-label="Select alert sound"
+              >
+                <option value="default">Default Beep</option>
+                <option value="chime">Gentle Chime</option>
+                <option value="bell">Bell</option>
+                <option value="ping">Ping</option>
+                <option value="alert">Alert Tone</option>
+                <option value="voice">Voice Warning</option>
+              </select>
+            </div>
+          </motion.section>
+
+          {/* Appearance */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.18 }}
+            className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md"
+          >
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+              Appearance
+            </h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              Customize the visual theme of the app
+            </p>
+
+            <div>
+              <label htmlFor="theme" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Theme
+              </label>
+              <div className="grid grid-cols-3 gap-3">
+                {(['auto', 'light', 'dark'] as const).map((theme) => (
+                  <button
+                    key={theme}
+                    onClick={() => {
+                      updateSettings({ theme });
+                      speakText(`Theme changed to ${theme} mode`);
+                    }}
+                    className={`py-3 px-4 rounded-lg border-2 transition-all font-medium capitalize ${
+                      (settings.theme || 'auto') === theme
+                        ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                        : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-blue-400'
+                    }`}
+                    aria-pressed={(settings.theme || 'auto') === theme}
+                  >
+                    {theme === 'auto' ? '🌓 Auto' : theme === 'light' ? '☀️ Light' : '🌙 Dark'}
+                  </button>
+                ))}
+              </div>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                Auto mode follows your system theme preference
+              </p>
             </div>
           </motion.section>
 

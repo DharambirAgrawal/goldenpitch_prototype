@@ -1,0 +1,26 @@
+{
+  "name": "Dwips - Assistive Navigation",
+  "short_name": "Dwips",
+  "description": "Advanced wearable assistive device companion app for visually impaired users with intelligent navigation and obstacle detection",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/dwips_logo.ico",
+      "sizes": "any",
+      "type": "image/x-icon",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["accessibility", "health", "navigation", "utilities"],
+  "lang": "en-US",
+  "dir": "ltr"
+}

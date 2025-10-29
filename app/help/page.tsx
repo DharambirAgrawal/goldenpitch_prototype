@@ -1,113 +1,125 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { 
-  HelpCircle, 
-  Volume2, 
-  Vibrate, 
-  Eye, 
-  Home as HomeIcon, 
-  Building, 
+import { motion } from "framer-motion";
+import {
+  HelpCircle,
+  Volume2,
+  Vibrate,
+  Eye,
+  Home as HomeIcon,
+  Building,
   Bluetooth,
   Info,
-  MessageCircle
-} from 'lucide-react';
-import { useApp } from '@/lib/context/AppContext';
+  MessageCircle,
+} from "lucide-react";
+import { useApp } from "@/lib/context/AppContext";
 
 export default function HelpPage() {
   const { speakText } = useApp();
 
   const helpSections = [
     {
-      title: 'Getting Started',
+      title: "Getting Started",
       icon: <Info className="w-6 h-6" />,
       content: [
         {
-          question: 'How do I connect my device?',
-          answer: 'Tap the "Connect Device" button on the Dashboard. The app will simulate a connection to your wearable device via Bluetooth Low Energy.',
-          icon: undefined
+          question: "How do I connect my device?",
+          answer:
+            'Tap the "Connect Device" button on the Dashboard. The app will simulate a connection to your wearable device via Bluetooth Low Energy.',
+          icon: undefined,
         },
         {
-          question: 'How do I start detection?',
-          answer: 'Once connected, tap the main circular button to start detection. The button will turn green and show "Stop Detection" when active.',
-          icon: undefined
-        }
-      ]
+          question: "How do I start detection?",
+          answer:
+            'Once connected, tap the main circular button to start detection. The button will turn green and show "Stop Detection" when active.',
+          icon: undefined,
+        },
+      ],
     },
     {
-      title: 'Detection Modes',
+      title: "Detection Modes",
       icon: <Building className="w-6 h-6" />,
       content: [
         {
-          question: 'What is Home Mode?',
-          answer: 'Home Mode is optimized for indoor navigation with a detection range of up to 5 meters. It provides more sensitive detection for navigating tight spaces and furniture.',
-          icon: undefined
+          question: "What is Home Mode?",
+          answer:
+            "Home Mode is optimized for indoor navigation with a detection range of up to 5 meters. It provides more sensitive detection for navigating tight spaces and furniture.",
+          icon: undefined,
         },
         {
-          question: 'What is Outdoor Mode?',
-          answer: 'Outdoor Mode extends the detection range up to 10 meters for outdoor environments. It helps you navigate sidewalks, crossings, and outdoor obstacles.',
-          icon: undefined
-        }
-      ]
+          question: "What is Outdoor Mode?",
+          answer:
+            "Outdoor Mode extends the detection range up to 10 meters for outdoor environments. It helps you navigate sidewalks, crossings, and outdoor obstacles.",
+          icon: undefined,
+        },
+      ],
     },
     {
-      title: 'Feedback Types',
+      title: "Feedback Types",
       icon: <MessageCircle className="w-6 h-6" />,
       content: [
         {
-          question: 'Audio Feedback',
-          answer: 'When enabled, the app plays a beep sound whenever an obstacle is detected. The beep helps you quickly recognize nearby obstacles.',
-          icon: <Volume2 className="w-5 h-5 text-blue-600" />
+          question: "Audio Feedback",
+          answer:
+            "When enabled, the app plays a beep sound whenever an obstacle is detected. The beep helps you quickly recognize nearby obstacles.",
+          icon: <Volume2 className="w-5 h-5 text-blue-600" />,
         },
         {
-          question: 'Vibration Feedback',
-          answer: 'Your device will vibrate when an obstacle is detected, providing tactile feedback. This is useful in noisy environments or when audio feedback is not preferred.',
-          icon: <Vibrate className="w-5 h-5 text-green-600" />
+          question: "Vibration Feedback",
+          answer:
+            "Your device will vibrate when an obstacle is detected, providing tactile feedback. This is useful in noisy environments or when audio feedback is not preferred.",
+          icon: <Vibrate className="w-5 h-5 text-green-600" />,
         },
         {
-          question: 'Visual Indicator',
-          answer: 'A visual alert appears on screen showing obstacle distance and direction. This is helpful for users with partial vision or for demonstrating the app.',
-          icon: <Eye className="w-5 h-5 text-purple-600" />
-        }
-      ]
+          question: "Visual Indicator",
+          answer:
+            "A visual alert appears on screen showing obstacle distance and direction. This is helpful for users with partial vision or for demonstrating the app.",
+          icon: <Eye className="w-5 h-5 text-purple-600" />,
+        },
+      ],
     },
     {
-      title: 'Accessibility Features',
+      title: "Accessibility Features",
       icon: <HelpCircle className="w-6 h-6" />,
       content: [
         {
-          question: 'Text-to-Speech',
-          answer: 'When enabled, the app speaks status updates, obstacle information, and navigation instructions aloud. This is the primary way visually impaired users interact with the app.',
-          icon: undefined
+          question: "Text-to-Speech",
+          answer:
+            "When enabled, the app speaks status updates, obstacle information, and navigation instructions aloud. This is the primary way visually impaired users interact with the app.",
+          icon: undefined,
         },
         {
-          question: 'Font Size Adjustment',
-          answer: 'Choose from small, medium, or large text sizes to make the app comfortable to read for users with partial vision or visual preferences.',
-          icon: undefined
+          question: "Font Size Adjustment",
+          answer:
+            "Choose from small, medium, or large text sizes to make the app comfortable to read for users with partial vision or visual preferences.",
+          icon: undefined,
         },
         {
-          question: 'High Contrast Mode',
-          answer: 'Increases color contrast throughout the app for better visibility. This helps users with low vision or in bright outdoor conditions.',
-          icon: undefined
-        }
-      ]
+          question: "High Contrast Mode",
+          answer:
+            "Increases color contrast throughout the app for better visibility. This helps users with low vision or in bright outdoor conditions.",
+          icon: undefined,
+        },
+      ],
     },
     {
-      title: 'Safety Tips',
+      title: "Safety Tips",
       icon: <Bluetooth className="w-6 h-6" />,
       content: [
         {
-          question: 'Important Safety Notice',
-          answer: 'This assistive device is designed to supplement, not replace, traditional mobility aids like canes or guide dogs. Always use caution and follow established safety practices when navigating.',
-          icon: undefined
+          question: "Important Safety Notice",
+          answer:
+            "This assistive device is designed to supplement, not replace, traditional mobility aids like canes or guide dogs. Always use caution and follow established safety practices when navigating.",
+          icon: undefined,
         },
         {
-          question: 'Battery and Connection',
-          answer: 'Ensure your wearable device is charged and properly connected before starting your journey. The app will alert you if the connection is lost.',
-          icon: undefined
-        }
-      ]
-    }
+          question: "Battery and Connection",
+          answer:
+            "Ensure your wearable device is charged and properly connected before starting your journey. The app will alert you if the connection is lost.",
+          icon: undefined,
+        },
+      ],
+    },
   ];
 
   return (
@@ -123,7 +135,7 @@ export default function HelpPage() {
             Help & Information
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            Learn how to use SafePath effectively
+            Learn how to use Dwips effectively
           </p>
         </motion.div>
 
@@ -142,7 +154,7 @@ export default function HelpPage() {
           </p>
           <button
             onClick={() => {
-              const guide = `Welcome to SafePath, your assistive navigation companion. 
+              const guide = `Welcome to Dwips, your assistive navigation companion. 
                 To get started, connect your wearable device from the Dashboard. 
                 Then tap the main button to start detection. 
                 You can choose between Home mode for indoor navigation up to 5 meters, 
@@ -171,13 +183,18 @@ export default function HelpPage() {
               className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md"
             >
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                <span className="text-blue-600 dark:text-blue-400">{section.icon}</span>
+                <span className="text-blue-600 dark:text-blue-400">
+                  {section.icon}
+                </span>
                 {section.title}
               </h2>
 
               <div className="space-y-4">
                 {section.content.map((item, itemIndex) => (
-                  <div key={itemIndex} className="border-l-4 border-blue-600 dark:border-blue-400 pl-4">
+                  <div
+                    key={itemIndex}
+                    className="border-l-4 border-blue-600 dark:border-blue-400 pl-4"
+                  >
                     <div className="flex items-start gap-2 mb-2">
                       {item.icon && <span className="mt-1">{item.icon}</span>}
                       <h3 className="font-semibold text-gray-900 dark:text-white">
@@ -188,7 +205,9 @@ export default function HelpPage() {
                       {item.answer}
                     </p>
                     <button
-                      onClick={() => speakText(`${item.question}. ${item.answer}`)}
+                      onClick={() =>
+                        speakText(`${item.question}. ${item.answer}`)
+                      }
                       className="mt-2 text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
                       aria-label={`Listen to ${item.question}`}
                     >
@@ -213,7 +232,8 @@ export default function HelpPage() {
             Need More Help?
           </h2>
           <p className="text-gray-700 dark:text-gray-300 mb-4">
-            This is a prototype demonstration. In a production app, you would find contact information and support resources here.
+            This is a prototype demonstration. In a production app, you would
+            find contact information and support resources here.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <button className="px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">

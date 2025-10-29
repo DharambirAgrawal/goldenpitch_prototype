@@ -61,16 +61,51 @@ export const mockJourneyLogs: JourneyLog[] = [
 ];
 
 // Generate random detection for simulation
-export function generateMockDetection(mode: 'home' | 'outdoor'): DetectionEvent {
-  const directions = ['front', 'left', 'right', 'front-left', 'front-right'];
-  const maxDistance = mode === 'home' ? 5 : 10;
+export function generateMockDetection(mode: 'home' | 'outdoor' | 'vehicle' | 'baby'): DetectionEvent {
+  const directions: ('front' | 'left' | 'right' | 'back')[] = ['front', 'left', 'right', 'back'];
+  const objectTypes: ('person_walking' | 'person_running' | 'vehicle_car' | 'vehicle_bike' | 'vehicle_motorcycle' | 'animal' | 'static_object' | 'unknown')[] = 
+    ['person_walking', 'person_running', 'vehicle_car', 'vehicle_bike', 'vehicle_motorcycle', 'animal', 'static_object', 'unknown'];
+  
+  let maxDistance = 10;
+  if (mode === 'home') maxDistance = 5;
+  else if (mode === 'vehicle') maxDistance = 15;
+  else if (mode === 'baby') maxDistance = 3;
+  
+  const distance = Math.random() * maxDistance + 0.5;
+  const speed = Math.random() * 3; // 0-3 m/s
+  const direction = directions[Math.floor(Math.random() * directions.length)];
+  const objectType = objectTypes[Math.floor(Math.random() * objectTypes.length)];
+  
+  // Calculate risk based on distance and speed
+  let riskLevel: 'safe' | 'caution' | 'danger' = 'safe';
+  if (distance < 2 || (speed > 2 && distance < 5)) {
+    riskLevel = 'danger';
+  } else if (distance < 4 || (speed > 1 && distance < 7)) {
+    riskLevel = 'caution';
+  }
+  
+  // Calculate time to contact if moving
+  const timeToContact = speed > 0.5 ? distance / speed : undefined;
+  
+  // Random zone angle (0-359)
+  let zoneAngle = Math.random() * 360;
+  if (direction === 'front') zoneAngle = Math.random() * 60 - 30; // -30 to 30
+  else if (direction === 'right') zoneAngle = 90 + Math.random() * 60 - 30; // 60 to 120
+  else if (direction === 'back') zoneAngle = 180 + Math.random() * 60 - 30; // 150 to 210
+  else if (direction === 'left') zoneAngle = 270 + Math.random() * 60 - 30; // 240 to 300
   
   return {
     id: Math.random().toString(36).substr(2, 9),
     timestamp: new Date(),
-    distance: Math.random() * maxDistance + 0.5,
-    direction: directions[Math.floor(Math.random() * directions.length)],
-    mode
+    distance,
+    direction,
+    zone: Math.round(zoneAngle),
+    mode,
+    objectType,
+    confidence: Math.floor(Math.random() * 30 + 70), // 70-100% confidence
+    speed,
+    riskLevel,
+    timeToContact
   };
 }
 

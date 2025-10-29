@@ -20,6 +20,11 @@ const defaultSettings: Settings = {
   textToSpeech: true,
   fontSize: 'medium',
   highContrast: false,
+  batteryLevel: 75,
+  isCharging: false,
+  theme: 'auto',
+  alertSound: 'default',
+  vehicleType: 'car',
 };
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
